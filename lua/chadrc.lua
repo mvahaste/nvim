@@ -19,6 +19,13 @@ M.ui = {
   statusline = {
     theme = "vscode",
   },
+  tabufline = {
+    modules = {
+      btns = function ()
+        return ""
+      end
+    }
+  }
 }
 
 return M
