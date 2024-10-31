@@ -9,6 +9,9 @@ My neovim config (based on [NvChad](https://nvchad.com/)) and some WSL stuff.
 I use [Oh My Posh](https://ohmyposh.dev/) for the prompt, [Zoxide](https://github.com/ajeetdsouza/zoxide) as a replacement for the `cd` command, and `n` as an alias for `nvim`.
 
 ```bash
+# Add bin to path (oh-my-posh not found otherwise)
+export PATH="$PATH:~/.local/bin"
+
 # Use Oh My Posh
 eval "$(oh-my-posh init bash --config ~/.cache/oh-my-posh/themes/pure.omp.json) $(zoxide init bash --cmd cd)"
 
