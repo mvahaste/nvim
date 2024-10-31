@@ -1,5 +1,3 @@
-# nvim
-
 My neovim config based on NvChad.
 
 <!--**This repo is supposed to used as config by NvChad users!**-->
