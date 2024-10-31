@@ -1,6 +1,6 @@
 # Neovim
 
-My neovim config (based on NvChad) and some WSL stuff.
+My neovim config (based on [NvChad](https://nvchad.com/)) and some WSL stuff.
 
 ## WSL
 
