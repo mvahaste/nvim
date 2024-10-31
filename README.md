@@ -4,13 +4,16 @@ My neovim config (based on [NvChad](https://nvchad.com/)) and some WSL stuff.
 
 ## WSL
 
-### Oh My Posh & Zoxide
+### Oh My Posh, Zoxide, Neovim alias
 
-I use [Oh My Posh](https://ohmyposh.dev/) for the prompt and [Zoxide](https://github.com/ajeetdsouza/zoxide) as a replacement for the `cd` command.
+I use [Oh My Posh](https://ohmyposh.dev/) for the prompt, [Zoxide](https://github.com/ajeetdsouza/zoxide) as a replacement for the `cd` command, and `n` as an alias for `nvim`.
 
 ```bash
 # Use Oh My Posh
 eval "$(oh-my-posh init bash --config ~/.cache/oh-my-posh/themes/pure.omp.json) $(zoxide init bash --cmd cd)"
+
+# Neovim alias
+alias n="nvim"
 ```
 
 ### Windows Terminal
