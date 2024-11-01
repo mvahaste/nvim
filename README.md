@@ -14,7 +14,7 @@ sudo ~/.config/nvim/install.sh
 
 ### Manual install
 
-Just follow [install.sh](/install.sh). [.zshrc](/.zshrc) and [tmux.conf](/tmux.conf) are in the `other/` directory.  
+Just follow [install.sh](/install.sh). [.zshrc](/other/.zshrc) and [tmux.conf](/other/tmux.conf) are in the `other/` directory.  
 
 ## WSL Profile
 
