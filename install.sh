@@ -23,7 +23,6 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
-# git clone --depth 1 https://github.com/mvahaste/nvim.git ~/.config/nvim
 
 # Install lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')

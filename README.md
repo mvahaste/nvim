@@ -13,8 +13,10 @@ sudo apt update && sudo apt upgrade
 ```sh
 git clone --depth 1 https://github.com/mvahaste/nvim.git ~/.config/nvim
 chmod +x ~/.config/nvim/install.sh
-sudo ~/.config/nvim/install.sh
+~/.config/nvim/install.sh
 ```
+
+After the script finishes close and reopen the terminal.
 
 ### Manual install
 
