@@ -2,6 +2,15 @@
 
 My neovim config along with the rest of my WSL setup.
 
+## WSL Profile
+
+When opening a WSL terminal window, connect to `main` session, or create it if it doesn't exist.
+
+```
+# Command line
+C:\WINDOWS\system32\wsl.exe -d Ubuntu -e sh -c "tmux attach -t main || tmux new -s main"
+```
+
 ## Update Ubuntu
 
 Update Ubuntu after installing with WSL.
@@ -28,7 +37,7 @@ curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh 
 
 
 # other dependencies
-sudo apt install build-essential unzip gh
+sudo apt install build-essential unzip ripgrep gh
 ```
 
 ```sh
@@ -122,12 +131,60 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 ```conf
 # ~/.config/tmux/tmux.conf
+
+# Fix tmux colors for Windows Terminal
+set -g default-terminal "screen-256color"
+set-option -sa terminal-overrides ",xterm-256color:RGB"
+
+# Enable mouse support
+set -g mouse on
+
+# Start windows and panes at 1
+set -g base-index 1
+set -g pane-base-index 1
+set-window-option -g pane-base-index 1
+set-option -g renumber-windows on
+
+# Set prefix
+unbind C-b
+set -g prefix C-space
+bind C-space send-prefix
+
+# Set vi mode
+set-window-option -g mode-keys vi
+
+# Copy with v and y
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+# Shift+Alt+[H, L] to switch windows
+bind -n M-H previous-window
+bind -n M-L next-window
+
+# Open panes in current directory
+bind '"' split-window -v -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
+# Install plugins
+set -g @plugin "tmux-plugins/tpm"
+set -g @plugin "tmux-plugins/tmux-sensible"
+set -g @plugin "tmux-plugins/tmux-yank"
+set -g @plugin "christoomey/vim-tmux-navigator"
+set -g @plugin "niksingh710/minimal-tmux-status"
+
+# Configure minimal-tmux-status
+set -g @minimal-tmux-use-arrow true
+set -g @minimal-tmux-right-arrow ""
+set -g @minimal-tmux-left-arrow ""
+
+run "~/.tmux/plugins/tpm/tpm"
 ```
 
 ## nvim
 
 ```sh
-# neovim
+# neovim and my config
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
@@ -168,33 +225,4 @@ Simple theme for the terminal.
   "white": "#DDDDDD",
   "yellow": "#E1AA5D"
 }
-```
-
-## SSH
-
-Autostart SSH agent and add keys.
-
-```bash
-# SSH agent
-SSH_ENV="$HOME/.ssh/agent-environment"
-
-function start_agent {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' >"$SSH_ENV"
-    echo succeeded
-    chmod 600 "$SSH_ENV"
-    . "$SSH_ENV" >/dev/null
-    /usr/bin/ssh-add;
-}
-
-# Source SSH settings, if applicable
-if [ -f "$SSH_ENV" ]; then
-    . "$SSH_ENV" >/dev/null
-    #ps $SSH_AGENT_PID doesn't work under Cygwin
-    ps -ef | grep $SSH_AGENT_PID | grep ssh-agent$ >/dev/null || {
-        start_agent
-    }
-else
-    start_agent
-fi
 ```
