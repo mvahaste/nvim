@@ -76,4 +76,8 @@ return {
       { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
   },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  }
 }
