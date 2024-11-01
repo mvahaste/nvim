@@ -4,6 +4,10 @@ My neovim config along with the rest of my WSL setup.
 
 ## Inside WSL
 
+```
+sudo apt update && sudo apt upgrade
+```
+
 ### Automatic install
 
 ```sh
