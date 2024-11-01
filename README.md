@@ -4,29 +4,140 @@ My neovim config (based on [NvChad](https://nvchad.com/)) and some WSL stuff.
 
 ## WSL
 
-### Oh My Posh, Zoxide, Neovim alias
+### Update
 
-I use [Oh My Posh](https://ohmyposh.dev/) for the prompt, [Zoxide](https://github.com/ajeetdsouza/zoxide) as a replacement for the `cd` command, and `n` as an alias for `nvim`.
+```
+sudo apt update && sudo apt upgrade
+```
 
-```bash
-# Add bin to path (oh-my-posh not found otherwise)
-export PATH="$PATH:~/.local/bin"
+### zsh, fzf, zoxide
 
-# Use Oh My Posh
-eval "$(oh-my-posh init bash --config ~/.cache/oh-my-posh/themes/pure.omp.json) $(zoxide init bash --cmd cd)"
+I use zsh for my shell.
 
-# Neovim alias
+```sh
+# zsh
+sudo apt install zsh build-essential
+chsh mvahaste
+
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+# zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+
+# other dependencies
+sudo apt install build-essential
+```
+
+```sh
+# .zshrc
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Add to path
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# Set zinit and plugins directory
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download zinit if it doesn't exist
+if [ ! -d "$ZINIT_HOME" ]; then
+        mkdir -p "$(dirname $ZINIT_HOME)"
+        git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Add Powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# Add zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# Add snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::command-not-found
+
+# Load completions
+autoload -U compinit && compinit
+
+zinit cdreplay -q
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Keybindings
+bindkey -e
+bindkey "^p" history-search-backward
+bindkey "^n" history-search-forward
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
+zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
+zstyle ":completion:*" menu no
+zstyle ":fzf-tab:complete:cd:*" fzf-preview "ls --color $realpath"
+
+# Aliases
+alias ls="ls --color"
 alias n="nvim"
+
+# Shell integrations
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init --cmd cd zsh)"
+```
+
+### tmux
+
+### nvim
+
+```sh
+# neovim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+sudo rm -rf /opt/nvim
+sudo tar -C /opt -xzf nvim-linux64.tar.gz
+git clone --depth 1 https://github.com/mvahaste/nvim.git ~/.config/nvim
+
+# lazygit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
 ```
 
 ### Windows Terminal
 
-Simple theme with a black background since I use transparency with blur.
+Simple theme for the terminal.
 
 ```json
 {
   "name": "X Dotshare",
-  "background": "#000000",
+  "background": "#151515",
   "black": "#101010",
   "blue": "#7DC1CF",
   "brightBlack": "#404040",
@@ -76,37 +187,4 @@ if [ -f "$SSH_ENV" ]; then
 else
     start_agent
 fi
-```
-
-### Miscellaneous snippets
-
-```bash
-# Compile and run java file with arguments
-function jcr() {
-    # If no arguments are given, print explanation
-    if [ $# -eq 0 ]; then
-        echo "Compile and run Java file with optional arguments. Don't include the extension in the file name."
-        echo "Usage: jcr <filename> <arguments>"
-        echo "Example: jcr Multiply 2 3"
-        return
-    fi
-
-    # Compile with UTF-8 encoding and pass arguments
-    javac -encoding UTF-8 "$1.java" && java "$1" "${@:2}"
-}
-```
-
-```bash
-# Lazy git add, commit and push with message
-function gacp() {
-    # If no arguments are given, print explanation
-    if [ $# -eq 0 ]; then
-        echo "Lazily add, commit and push all changes to the repository."
-        echo "Usage: lazygit <message>"
-        echo "Example: lazygit \"Initial commit\""
-        return
-    fi
-
-    git add . && git commit -a -m "$1" && git push
-}
 ```
