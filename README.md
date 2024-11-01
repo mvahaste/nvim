@@ -2,15 +2,13 @@
 
 My neovim config (based on [NvChad](https://nvchad.com/)) and some WSL stuff.
 
-## WSL
-
-### Update
+## Update
 
 ```
 sudo apt update && sudo apt upgrade
 ```
 
-### zsh, fzf, zoxide
+## zsh, fzf, zoxide
 
 I use zsh for my shell.
 
@@ -112,9 +110,9 @@ alias n="nvim"
 eval "$(zoxide init --cmd cd zsh)"
 ```
 
-### tmux
+## tmux
 
-### nvim
+## nvim
 
 ```sh
 # neovim
@@ -130,7 +128,7 @@ tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 ```
 
-### Windows Terminal
+## Windows Terminal
 
 Simple theme for the terminal.
 
@@ -160,7 +158,7 @@ Simple theme for the terminal.
 }
 ```
 
-### SSH
+## SSH
 
 Autostart SSH agent and add keys.
 
