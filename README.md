@@ -13,15 +13,11 @@ C:\WINDOWS\system32\wsl.exe -d Ubuntu -e sh -c "tmux attach -t main || tmux new 
 
 ## Update Ubuntu
 
-Update Ubuntu after installing with WSL.
-
 ```
 sudo apt update && sudo apt upgrade
 ```
 
 ## zsh, fzf & zoxide
-
-I use zsh for my shell.
 
 ```sh
 # zsh
