@@ -1,14 +1,16 @@
 # Neovim
 
-My neovim config (based on [NvChad](https://nvchad.com/)) and some WSL stuff.
+My neovim config along with the rest of my WSL setup.
 
-## Update
+## Update Ubuntu
+
+Update Ubuntu after installing with WSL.
 
 ```
 sudo apt update && sudo apt upgrade
 ```
 
-## zsh, fzf, zoxide
+## zsh, fzf & zoxide
 
 I use zsh for my shell.
 
@@ -26,7 +28,7 @@ curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh 
 
 
 # other dependencies
-sudo apt install build-essential
+sudo apt install build-essential unzip gh
 ```
 
 ```sh
@@ -110,7 +112,17 @@ alias n="nvim"
 eval "$(zoxide init --cmd cd zsh)"
 ```
 
-## tmux
+## tmux & tpm
+
+```sh
+sudo apt install tmux
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+```conf
+# ~/.config/tmux/tmux.conf
+```
 
 ## nvim
 
