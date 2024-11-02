@@ -20,7 +20,7 @@ After the script finishes close and reopen the terminal.
 
 ### Manual install
 
-Just follow [install.sh](/install.sh). [.zshrc](/other/.zshrc) and [tmux.conf](/other/tmux.conf) are in the `other/` directory.  
+Just follow [install.sh](/install.sh). [.zshrc](/other/.zshrc) and [tmux.conf](/other/tmux.conf) are in the `other/` directory.
 
 ## WSL Profile
 
@@ -30,32 +30,33 @@ When opening a WSL terminal window, connect to `main` session, or create it if i
 # Command line
 C:\WINDOWS\system32\wsl.exe -d Ubuntu -e sh -c "tmux attach -t main || tmux new -s main"
 ```
+
 ## Windows Terminal
 
 Simple theme for the terminal.
 
 ```json
 {
-  "name": "X Dotshare",
-  "background": "#151515",
-  "black": "#101010",
-  "blue": "#7DC1CF",
-  "brightBlack": "#404040",
-  "brightBlue": "#4E9FB1",
-  "brightCyan": "#42717B",
-  "brightGreen": "#A0CF5D",
-  "brightPurple": "#8542FF",
-  "brightRed": "#D23D3D",
-  "brightWhite": "#DDDDDD",
-  "brightYellow": "#F39D21",
-  "cursorColor": "#FFFFFF",
-  "cyan": "#6D878D",
-  "foreground": "#D7D0C7",
-  "green": "#B8D68C",
-  "purple": "#9B64FB",
-  "red": "#E84F4F",
-  "selectionBackground": "#FFFFFF",
-  "white": "#DDDDDD",
-  "yellow": "#E1AA5D"
+  "background": "#000000",
+  "black": "#1B1B1B",
+  "blue": "#458588",
+  "brightBlack": "#928374",
+  "brightBlue": "#83A598",
+  "brightCyan": "#8EC07C",
+  "brightGreen": "#B8BB26",
+  "brightPurple": "#D3869B",
+  "brightRed": "#FB4934",
+  "brightWhite": "#EBDBB2",
+  "brightYellow": "#FABD2F",
+  "cursorColor": "#EBDBB2",
+  "cyan": "#689D6A",
+  "foreground": "#EBDBB2",
+  "green": "#98971A",
+  "name": "GruvboxDarkHard",
+  "purple": "#B16286",
+  "red": "#CC241D",
+  "selectionBackground": "#665C54",
+  "white": "#A89984",
+  "yellow": "#D79921"
 }
 ```
