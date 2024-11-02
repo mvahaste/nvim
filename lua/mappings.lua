@@ -28,4 +28,7 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
+-- flip boolean
+map("n", "<leader>i", "<cmd>:ToggleAlternate<CR>", { desc = "Flip boolean" })
+
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

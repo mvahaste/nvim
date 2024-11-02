@@ -79,5 +79,10 @@ return {
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
-  }
+  },
+  {
+    "rmagatti/alternate-toggler",
+    lazy = true,
+    event = { "BufReadPost" },
+  },
 }
